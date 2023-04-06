@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  -let results = [{age: 20, size: 100, name: "oak"}, {age: 30, size: 110, name: "pine"}, {age: 40, size: 120, name: "birch"}];
+
+  div(class="container-fluid")
+    div(class="row")
+      each x in results
+        div(class="col-sm-2") age: #{x.age} <br> size: #{x.size} <br> name: #{x.name} 

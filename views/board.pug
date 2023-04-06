@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1= title 
+  p #{query.rows}
+  p #{query.cols}
+  -let rows = Number(query.rows);
+  -let cols = Number(query.cols);
+  if Number.isInteger(rows) 
+    if Number.isInteger(cols)
+      if rows > 0 && rows < 10
+        if cols > 0 && cols < 10
+          table#outer
+            -for(let i=0; i<rows; i++){
+              tr#middle
+                -for(let j=0; j<cols; j++){
+                  if (j+1-i) < 0
+                    td 0
+                  else
+                    td #{j + 1 - i}
+                -}
+            -}
+        else
+          p column too large or small
+      else
+        p row is too large or small
+    else 
+      p column is not an number
+  else
+    p row is not a number
+  
