@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 var treesRouter = require('./routes/tree');
 var boardRouter = require('./routes/board');
 var selectorRouter = require("./routes/selector");
+var Costume = require("./models/tree");
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -22,11 +24,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString,
+{useNewUrlParser: true,
+useUnifiedTopology: true});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tree', treesRouter);
 app.use('/board', boardRouter);
 app.use('/selector', selectorRouter);
+app.use('/resource', resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,5 +54,17 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// We can seed the collection if needed on
+async function recreateDB(){
+ // Delete everything
+ await Costume.deleteMany();
+ let instance1 = new
+Costume({costume_type:"ghost", size:'large',
+cost:25.4});
+ instance1.save();
+}
+let reseed = true;
+if (reseed) { recreateDB();}
 
 module.exports = app;
