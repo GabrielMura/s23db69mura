@@ -19,3 +19,15 @@ exports.tree_delete = function(req, res) {
 exports.tree_update_put = function(req, res) {
  res.send('NOT IMPLEMENTED: Tree update PUT' + req.params.id);
 };
+
+// List of all Costumes
+exports.costume_list = async function(req, res) {
+    try{
+    theCostumes = await Costume.find();
+    res.send(theCostumes);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+   };
