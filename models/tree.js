@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
-const costumeSchema = mongoose.Schema({
-costume_type: String,
-size: String,
-cost: Number
+const treeSchema = mongoose.Schema({
+age: Number, 
+size: Number, 
+name: String
 })
-module.exports = mongoose.model("Costume", costumeSchema)
+module.exports = mongoose.model("Tree", treeSchema)

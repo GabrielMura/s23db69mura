@@ -9,7 +9,7 @@ var usersRouter = require('./routes/users');
 var treesRouter = require('./routes/tree');
 var boardRouter = require('./routes/board');
 var selectorRouter = require("./routes/selector");
-var Costume = require("./models/tree");
+var Tree = require("./models/tree");
 var resourceRouter = require('./routes/resource');
 
 var app = express();
@@ -57,14 +57,12 @@ app.use(function(err, req, res, next) {
 
 // We can seed the collection if needed on
 async function recreateDB(){
- // Delete everything
- await Costume.deleteMany();
- let instance1 = new
-Costume({costume_type:"ghost", size:'large',
-cost:25.4});
- instance1.save();
-}
-let reseed = true;
-if (reseed) { recreateDB();}
+  // Delete everything
+  await Tree.deleteMany();
+  let instance1 = new Tree({age: 20, size: 100, name: "oak"});
+  instance1.save();
+ }
+ let reseed = true;
+ if (reseed) { recreateDB();}
 
 module.exports = app;
