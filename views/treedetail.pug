@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1= title
+    - let treeid = toShow._id
+    - let treeage = toShow.age
+    - let treesize = toShow.size
+    - let treename = toShow.name
+
+    div
+        div.row
+            div(class='treeAttr mr-3') Costume ID is:
+            div #{treeid}
+        div.row
+            div(class='treeAttr mr-3') Tree Name is:
+            div #{treename}
+        div.row
+            div(class='treeAttr mr-3') Tree Size is:
+            div #{treesize}
+        div.row
+            div(class='treeAttr mr-3') Tree Age is:
+            div #{treeage}

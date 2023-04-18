@@ -59,8 +59,12 @@ app.use(function(err, req, res, next) {
 async function recreateDB(){
   // Delete everything
   await Tree.deleteMany();
-  let instance1 = new Tree({age: 20, size: 100, name: "oak"});
+  let instance1 = new Tree({age: 10, size: 100, name: "oak"});
+  let instance2 = new Tree({age: 20, size: 200, name: "pine"});
+  let instance3 = new Tree({age: 30, size: 300, name: "birch"});
   instance1.save();
+  instance2.save();
+  instance3.save();
  }
  let reseed = true;
  if (reseed) { recreateDB();}

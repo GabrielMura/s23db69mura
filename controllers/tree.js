@@ -1,9 +1,4 @@
 var Tree = require('../models/tree');
-// Handle Costume delete form on DELETE.
-exports.tree_delete = function(req, res) {
- res.send('NOT IMPLEMENTED: Tree delete DELETE ' + req.params.id);
-};
-   
 
 // List of all Tree
 exports.tree_list = async function(req, res) {
@@ -30,7 +25,7 @@ exports.tree_view_all_Page = async function(req, res) {
     }
    };
 
-// Handle Costume create on POST.
+// Handle Tree create on POST.
 exports.tree_create_post = async function(req, res) {
     console.log(req.body)
     let document = new Tree();
@@ -51,7 +46,7 @@ exports.tree_create_post = async function(req, res) {
     }
    };
 
-// for a specific Costume.
+// for a specific Tree.
 exports.tree_detail = async function(req, res) {
     console.log("detail" + req.params.id)
     try {
@@ -63,7 +58,7 @@ exports.tree_detail = async function(req, res) {
     }
    };
 
-   // Handle Costume update form on PUT.
+   // Handle Tree update form on PUT.
    exports.tree_update_put = async function(req, res) {
     console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`)
     try {
@@ -81,3 +76,58 @@ exports.tree_detail = async function(req, res) {
    failed`);
     }
    };
+
+// Handle Tree delete on DELETE.
+exports.tree_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await Tree.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+};
+
+// Handle a show one view with id specified by query
+exports.tree_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await Tree.findById( req.query.id)
+    res.render('treedetail',
+   { title: 'Tree Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
+
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.tree_create_Page = function(req, res) {
+    console.log("create view")
+    try{
+    res.render('treecreate', { title: 'Tree Create'});
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+   };
+
+// Handle building the view for updating a costume.
+// query provides the id
+exports.tree_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await Tree.findById(req.query.id)
+    res.render('treeupdate', { title: 'Tree Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+};
