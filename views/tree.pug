@@ -5,6 +5,21 @@ block content
   -let items = results;
 
   div(class="container-fluid")
-    div(class="row")
+    div(class="row m-1")
       each x in items
+        - let destination = `dispatch(\"/tree/update?id=${x._id}\")`
+        - let destination1 = `dispatch(\"/tree/detail?id=${x._id}\")`
+        - let destination2 = `dispatch(\"/tree/delete?id=${x._id}\")`
         div(class="col-sm-2") age: #{x.age} <br> size: #{x.size} <br> name: #{x.name} 
+          br
+          button.btn(class="btn-primary ml-1", onclick=destination) Update
+          br
+          button.btn(class="btn-primary ml-1", onclick="dispatch(\"/tree/create\")") Create
+          br
+          button.btn(class="btn-primary ml-1", onclick=destination1) Details
+          br
+          button.btn(class="btn-primary ml-1", onclick=destination2) Delete
+  script.
+    function dispatch(path){
+      window.location.href=path
+    }

@@ -1,19 +1,11 @@
 extends layout
-
 block content
-  h1= title
-  p HELLO! Welcome to #{title}
-  button(type="button", class="btn btn-primary", onclick="doReduce()") Press Me
-  div(id="reduce") Reduce the Value
-
-  a(href='./tree') tree.pug
-  script. 
-    let count = 20;
-    let change = -1;
-
-    function doReduce(){
-      count = count + change; 
-      change = change - 1;
-      document.getElementById("reduce").innerHTML = "count: " + count + " change: " + change;
-    }
-  
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/tree") Take me to trees
+    br
+    a(href="/logout") Logout
